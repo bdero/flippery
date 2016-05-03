@@ -27,12 +27,14 @@ public class movement : MonoBehaviour {
 		float x = Input.GetAxis ("Horizontal");
 		float y = Input.GetAxis ("Vertical");
 
+		Vector3 torque = new Vector3 (y, 0f, -x);
+
 		if (colliding) {
-			Vector3 torque = new Vector3 (y, 0f, -x);
-			rb.AddTorque (torque * torqueSpeed);
+			rb.AddTorque (torque * torqueSpeed/2);
 		} else {
 			Vector3 movement = new Vector3 (x, 0f, y);
 			rb.AddForce (movement * movementSpeed);
+			rb.AddTorque (torque * torqueSpeed);
 		}
 	}
 }
